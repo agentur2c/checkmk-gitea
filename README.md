@@ -33,7 +33,7 @@ wget -O - "https://raw.githubusercontent.com/agentur2c/checkmk-gitea/refs/heads/
 curl -s "https://raw.githubusercontent.com/agentur2c/checkmk-gitea/refs/heads/main/quick-install.sh" | sh
 ```
 
-### Installationsskript quick-install.sh für gitea-runner
+### Installationsskript quick-install-runner.sh für gitea-runner
 
 **Über wget:**
 ```bash
