@@ -18,7 +18,7 @@ DLURL="https://dl.gitea.com/gitea"
 # Prüfung ob Gitea Installation vorhanden
 #==============================================================================
 if [ ! -f "$GITEA" ]; then
-    echo "3 \"Gitea Version\" - Fehler: $GITEA nicht gefunden."
+    echo "3 \"Gitea Version\" - CRITICAL: $GITEA nicht gefunden."
     # Optional: Cache löschen, damit nach dem Beheben des Fehlers sofort neu geprüft wird
     rm -f "$CACHE_FILE"
     exit 0
@@ -36,12 +36,12 @@ execute_gitea_check() {
     EXIT_CODE2=$?
 
     if [ $EXIT_CODE1 -ne 0 ]; then
-        echo "2 \"Gitea Version\" - CRITICAL: Fehler: $OUTPUT1
+        echo "2 \"Gitea Version\" - CRITICAL: $OUTPUT1
         return
     fi
 
     if [ $EXIT_CODE2 -ne 0 ]; then
-        echo "2 \"Download Version\" - CRITICAL: Fehler: $OUTPUT1
+        echo "2 \"Download Version\" - CRITICAL: $OUTPUT1
         return
     fi
 
