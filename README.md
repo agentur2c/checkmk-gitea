@@ -21,7 +21,7 @@ Dank einer integrierten, intelligenten Cache-Logik läuft Abfrage standardmäßi
 
 ## Automatisch
 
-### Installationsskript quick-install.sh
+### Installationsskript quick-install.sh für gitea
 
 **Über wget:**
 ```bash
@@ -31,6 +31,18 @@ wget -O - "https://raw.githubusercontent.com/agentur2c/checkmk-gitea/refs/heads/
 **Alternativ über curl:**
 ```bash
 curl -s "https://raw.githubusercontent.com/agentur2c/checkmk-gitea/refs/heads/main/quick-install.sh" | sh
+```
+
+### Installationsskript quick-install.sh für gitea-runner
+
+**Über wget:**
+```bash
+wget -O - "https://raw.githubusercontent.com/agentur2c/checkmk-gitea/refs/heads/main/quick-install-runner.sh" | sh
+```
+
+**Alternativ über curl:**
+```bash
+curl -s "https://raw.githubusercontent.com/agentur2c/checkmk-gitea/refs/heads/main/quick-install-runner.sh" | sh
 ```
 
 **Danach mit Schritt 4 der manuellen Installation fortfahren.**
@@ -50,8 +62,8 @@ Lade das Skript direkt in das Verzeichnis herunter.
 
 **Über wget:**
 ```bash
-wget -O /usr/lib/check_mk_agent/local/gitea_version "https://raw.githubusercontent.com/agentur2c/checkmk-gitea/refs/heads/main/gitea_version/
-wget -O /usr/lib/check_mk_agent/local/gitea-runner_version "https://raw.githubusercontent.com/agentur2c/checkmk-gitea/refs/heads/main/gitea-runner_version/
+wget -O /usr/lib/check_mk_agent/local/gitea_version "https://raw.githubusercontent.com/agentur2c/checkmk-gitea/refs/heads/main/gitea_version/"
+wget -O /usr/lib/check_mk_agent/local/gitea-runner_version "https://raw.githubusercontent.com/agentur2c/checkmk-gitea/refs/heads/main/gitea-runner_version/"
 ```
 
 **Alternativ über curl:**
