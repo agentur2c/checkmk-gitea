@@ -1,7 +1,7 @@
 #!/bin/bash
 
-CHKSCRIPTURL="https://raw.githubusercontent.com/agentur2c/checkmk-froxlor/refs/heads/main/froxlor_version"
-CHKSCRIPT="froxlor_version"
+CHKSCRIPTURL="https://raw.githubusercontent.com/agentur2c/checkmk-gitea/refs/heads/main/gitea_version"
+CHKSCRIPT="gitea_version"
 
 INSTPATH="/usr/lib/check_mk_agent/local"
 

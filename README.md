@@ -49,12 +49,12 @@ Lade das Skript direkt in das Verzeichnis herunter.
 
 **Über wget:**
 ```bash
-wget -O /usr/lib/check_mk_agent/local/froxlor_version "https://raw.githubusercontent.com/agentur2c/checkmk-gitea/refs/heads/main/gitea_version"
+wget -O /usr/lib/check_mk_agent/local/gitea_version "https://raw.githubusercontent.com/agentur2c/checkmk-gitea/refs/heads/main/gitea_version/
 ```
 
 **Alternativ über curl:**
 ```bash
-curl -o /usr/lib/check_mk_agent/local/froxlor_version "https://raw.githubusercontent.com/agentur2c/checkmk-gitea/refs/heads/main/gitea_version"
+curl -o /usr/lib/check_mk_agent/local/gitea_version "https://raw.githubusercontent.com/agentur2c/checkmk-gitea/refs/heads/main/gitea_version"
 ```
 
 ### 3. Ausführungsrechte vergeben
