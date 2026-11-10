@@ -9,7 +9,6 @@
 # Cache-Einstellungen
 CACHE_FILE="/var/tmp/cmk_gitea-runner_update.cache"
 CACHE_TTL=3600 # 1 Stunde in Sekunden
-CACHE_TTL=2 # 1 Stunde in Sekunden
 
 # Pfad zu Gitea-Runner anpassen
 GITEA="/usr/local/bin/gitea-runner"
@@ -48,10 +47,10 @@ execute_gitea_check() {
 
     # Status anhand des Inhalts bestimmen und die originale Zeile ausgeben
     if [ "$OUTPUT1" != "$OUTPUT2" ]; then
-	OUTPUT="Installed: "$OUTPUT1" - Download: "$OUTPUT2
-        echo "1 \"Gitea-Runner Version\" - WARN - $OUTPUT"
+	OUTPUT="Version: "$OUTPUT1" - Download: "$OUTPUT2
+        echo "1 \"Gitea-Runner Version\" - $OUTPUT"
     else
-        echo "0 \"Gitea-Runner Version\" - OK - $OUTPUT1"
+        echo "0 \"Gitea-Runner Version\" - Version: $OUTPUT1"
     fi
 }
 
