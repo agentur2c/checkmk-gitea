@@ -48,10 +48,10 @@ execute_gitea_check() {
 
     # Status anhand des Inhalts bestimmen und die originale Zeile ausgeben
     if [ "$OUTPUT1" != "$OUTPUT2" ]; then
-	OUTPUT="Installed: "$OUTPUT1" - Download: "$OUTPUT2
-        echo "1 \"Gitea Version\" - WARN - $OUTPUT"
+	OUTPUT=$OUTPUT1" - Download: "$OUTPUT2
+        echo "1 \"Gitea Version\" - Version $OUTPUT1 - Download: $OUTPUT2"
     else
-        echo "0 \"Gitea Version\" - OK - $OUTPUT1"
+        echo "0 \"Gitea Version\" - Version: $OUTPUT1"
     fi
 }
 
