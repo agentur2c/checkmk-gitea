@@ -1,0 +1,83 @@
+#!/bin/bash
+#
+#    gitea-runner_version  Checkmk Local Check für Gitea-Runner Update-Status
+#
+#    Version 1.0           2026-11-10 agentur2c - Christoph Mai
+#
+#----------------------------------------------------------------------------
+
+# Cache-Einstellungen
+CACHE_FILE="/var/tmp/cmk_gitea-runner_update.cache"
+CACHE_TTL=3600 # 1 Stunde in Sekunden
+CACHE_TTL=2 # 1 Stunde in Sekunden
+
+# Pfad zu Gitea-Runner anpassen
+GITEA="/usr/local/bin/gitea-runner"
+DLURL="https://dl.gitea.com/gitea-runner"
+
+#==============================================================================
+# Prüfung ob Gitea-Runner Installation vorhanden
+#==============================================================================
+if [ ! -f "$GITEA" ]; then
+    echo "3 \"Gitea-Runner Version\" - Fehler: $GITEA nicht gefunden."
+    # Optional: Cache löschen, damit nach dem Beheben des Fehlers sofort neu geprüft wird
+    rm -f "$CACHE_FILE"
+    exit 0
+fi
+
+#==============================================================================
+# Check auf Gitea-Runner Version
+#==============================================================================
+execute_gitea_check() {
+
+    OUTPUT1=$($GITEA --version | awk '{print $3}' | sed 's/^v//' 2>&1)
+    EXIT_CODE1=$?
+
+    OUTPUT2=$(curl -fsSL "$DLURL/version.json" | jq -r '.latest.version')
+    EXIT_CODE2=$?
+
+    if [ $EXIT_CODE1 -ne 0 ]; then
+        echo "2 \"Gitea-Runner Version\" - CRITICAL: Fehler: $OUTPUT1
+        return
+    fi
+
+    if [ $EXIT_CODE2 -ne 0 ]; then
+        echo "2 \"Download Version\" - CRITICAL: Fehler: $OUTPUT1
+        return
+    fi
+
+    # Status anhand des Inhalts bestimmen und die originale Zeile ausgeben
+    if [ "$OUTPUT1" != "$OUTPUT2" ]; then
+	OUTPUT="Installed: "$OUTPUT1" - Download: "$OUTPUT2
+        echo "1 \"Gitea-Runner Version\" - WARN - $OUTPUT"
+    else
+        echo "0 \"Gitea-Runner Version\" - OK - $OUTPUT1"
+    fi
+}
+
+
+#==============================================================================
+# Cache Prüfung
+#==============================================================================
+
+# Prüfen, ob die Cache-Datei existiert und jünger als 1 Stunde ist
+if [ -f "$CACHE_FILE" ] && [ $(( $(date +%s) - $(stat -c %Y "$CACHE_FILE") )) -lt $CACHE_TTL ]; then
+    
+    # Cache ist zeitlich noch gültig. Jetzt prüfen wir den Inhalt:
+    if grep -q "^0 " "$CACHE_FILE"; then
+        # Der letzte Status war "0" (OK) -> Wir nutzen den Cache und schonen die Ressourcen
+        cat "$CACHE_FILE"
+    else
+        # Der letzte Status war ein Fehler -> Trotz gültiger Zeit ECHT neu prüfen!
+        RESULT=$(execute_gitea_check)
+        echo "$RESULT" > "$CACHE_FILE"
+        echo "$RESULT"
+    fi
+
+else
+    # Cache ist abgelaufen oder existiert noch nicht -> Echtprüfung
+    RESULT=$(execute_gitea_check)
+    echo "$RESULT" > "$CACHE_FILE"
+    echo "$RESULT"
+fi
+
