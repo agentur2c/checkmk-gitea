@@ -12,9 +12,9 @@ rm -f $INSTPATH/*/$CHKSCRIPT
 mkdir -p $INSTPATH
 
 # Prüfen, ob wget oder curl vorhanden ist und Download ausführen
-if command -v wget >/dev/null 2>&1; then
+if command -v wget > /dev/null 2>&1; then
     wget -q -O $INSTPATH/$CHKSCRIPT "$CHKSCRIPTURL"
-elif command -v curl >/dev/null 2>&1; then
+elif command -v curl > /dev/null 2>&1; then
     curl -s -o $INSTPATH/$CHKSCRIPT "$CHKSCRIPTURL"
 else
     echo "Fehler: Weder 'wget' noch 'curl' wurden auf diesem System gefunden." >&2
@@ -27,4 +27,3 @@ chmod +x $INSTPATH/$CHKSCRIPT
 
 echo "Installation erfolgreich abgeschlossen!"
 echo "Bitte nutze Setup -> Service Discovery in Checkmk für diesen Host, um den Service zu aktivieren."
-
