@@ -1,12 +1,13 @@
-# Checkmk Local Check für gitea Update-Status
+# Checkmk Local Check für gitea / gitea-runner Update-Status
 
-Dieses Bash-Skript integriert eine automatische Prüfung auf verfügbare gitea-Updates in **Checkmk**. Es fragt doe Version das Binary ab, vergleit mit der aktuellsten Download-Version und bereitet sie im passenden Format für einen Checkmk **Local Check** auf.
+Dieses Bash-Skript integriert eine automatische Prüfung auf verfügbare gitea- / gitea-runner Updates in **Checkmk**. Es fragt die Version das Binary ab, vergleit mit der aktuellsten Download-Version und bereitet sie im passenden Format für einen Checkmk **Local Check** auf.
 
 Dank einer integrierten, intelligenten Cache-Logik läuft Abfrage standardmäßig nur einmal pro Stunde. Liegt jedoch ein Fehler oder ein ausstehendes Update vor, schaltet das Skript sofort in den Minutentakt, damit Checkmk nach dem Einspielen des Updates **innerhalb von 60 Sekunden automatisch wieder auf Grün wechselt**.
 
 ## Getestet mit folgenden Versionen
 * Checkmk Community (formerly Raw) >= 2.5.0
 * Gitea >= 28.3.0
+* Gitea-Runner >= 5.0.0
 
 ## Features
 * **Automatische Erkennung:** Prüft zuverlässig, ob ein neues Gitea-Update bereitsteht.
@@ -50,11 +51,13 @@ Lade das Skript direkt in das Verzeichnis herunter.
 **Über wget:**
 ```bash
 wget -O /usr/lib/check_mk_agent/local/gitea_version "https://raw.githubusercontent.com/agentur2c/checkmk-gitea/refs/heads/main/gitea_version/
+wget -O /usr/lib/check_mk_agent/local/gitea-runner_version "https://raw.githubusercontent.com/agentur2c/checkmk-gitea/refs/heads/main/gitea-runner_version/
 ```
 
 **Alternativ über curl:**
 ```bash
 curl -o /usr/lib/check_mk_agent/local/gitea_version "https://raw.githubusercontent.com/agentur2c/checkmk-gitea/refs/heads/main/gitea_version"
+curl -o /usr/lib/check_mk_agent/local/gitea-runner_version "https://raw.githubusercontent.com/agentur2c/checkmk-gitea/refs/heads/main/gitea-runner_version"
 ```
 
 ### 3. Ausführungsrechte vergeben
@@ -62,6 +65,7 @@ Damit der Checkmk-Agent das Skript ausführen kann, müssen die Rechte angepasst
 
 ```bash
 chmod +x /usr/lib/check_mk_agent/local/gitea_version
+chmod +x /usr/lib/check_mk_agent/local/gitea-runner_version
 ```
 
 ### 4. In Checkmk einbinden
