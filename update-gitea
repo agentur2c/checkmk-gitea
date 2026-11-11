@@ -1,0 +1,21 @@
+#!/bin/bash
+
+cd /usr/local/bin
+
+BASE="https://dl.gitea.com/gitea"
+
+INSTALLED=$(gitea --version | awk '{print $3}')
+LATEST=$(curl -fsSL "$BASE/version.json" | jq -r '.latest.version')
+
+if [ "$LATEST" != "$INSTALLED" ]; then
+    echo "Neue Version: $INSTALLED -> $LATEST"
+    NAME="gitea-${LATEST}-linux-amd64"
+    wget "$BASE/$LATEST/$NAME" -O "$NAME"
+    chmod +x "$NAME"
+    systemctl stop gitea
+    rm gitea && ln -s "$NAME" gitea
+    systemctl start gitea
+else
+    echo "Gitea ist aktuell: $INSTALLED"
+fi
+
